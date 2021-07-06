@@ -4,25 +4,22 @@ public class Main {
 
     public static void main(String[] args) {
         Character paladin = new Character();
-        paladin.setNameAndAge("Gilbert", 25);
-        paladin.className = "Paladin";
-        paladin.mana = 100;
-        paladin.powers = new String[]{"Saint fist", "Power of God", "Stone heart"};
+        paladin.setAtributes("", 25, "Paladin", 300);
+        paladin.setPowers(new String[]{"Power of God", "Stone heart", "Faith fist"});
+
+        paladin.setHealth(500);
+        System.out.println("Using getter in main class " + paladin.getHealth());
+        System.out.println(" ");
 
         paladin.speak();
         paladin.spells();
 
-        int newMana1 = paladin.calculateMana();
-        System.out.println("Now " + paladin.name + " mana is " + paladin.mana
-                + " and after using " +paladin.powers[0] +" it will be " + newMana1);
-
+        paladin.printMana();
         System.out.println(" ");
 
         Character mage = new Character();
-        mage.setNameAndAge("Andrew", 17);
-        mage.className = "Mage";
-        mage.mana = 300;
-        mage.powers = new String[]{"Fire blast", "Lightning strike", "Elemental attack"};
+        mage.setAtributes("Andrew", 17, "Mage", 300);
+        mage.setPowers(new String[]{"Fire blast", "Lightning strike", "Elemental attack"});
 
         mage.speak();
         mage.spells();
@@ -30,11 +27,12 @@ public class Main {
 }
 
 class Character{
-    String name;
-    String className;
-    int age;
-    String[] powers;
-    int mana;
+    private String name;
+    private String className;
+    private int age;
+    private String[] powers;
+    private int mana;
+    private int health;
 
     void speak(){
         System.out.println(name + " is " + className + ", he is " + age + " years old.");
@@ -49,8 +47,32 @@ class Character{
         return newMana;
     }
 
-    void setNameAndAge(String username, int years){
+    void setAtributes(String username, int years, String characterClass,int manaCount){
+        if (username.isEmpty()){
+            System.out.println("Please enter character name");
+        }
+        else
         name = username;
         age =  years;
+        className = characterClass;
+        mana = manaCount;
+    }
+
+    void printMana(){
+        int newMana1 = calculateMana();
+        System.out.println("Now " + name + " mana is " + mana
+                + " and after using " +powers[0] +" it will be " + newMana1);
+    }
+
+    public void setPowers(String[] skills) {
+        this.powers = skills;
+    }
+
+    public void setHealth(int hp){
+        health = hp;
+    }
+
+    public int getHealth(){
+        return health;
     }
 }
